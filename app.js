@@ -14,7 +14,7 @@ sendMessage = async function () {
     
     for (i = 0;i < 5;i++) {
         message.customProperties.messagenumber=i;
-        message.body='Notification Type: PROBLEM #'+i;        
+        message.body='Notification Type: PROBLEM - NGPROXY_US/NGProxyUS_Filas_Status_Erro '+i;        
         await serviceBusService.sendTopicMessage(process.env.TOPIC, message, function(error) {
           if (error) {
             console.log(error);
