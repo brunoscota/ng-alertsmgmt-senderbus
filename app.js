@@ -5,21 +5,23 @@ var serviceBusService = azure.createServiceBusService();
 sendMessage = async function () {
    
     var message = {
-        body: '',
+        body: '!!!TESTE!!!-NGPROXY_US/NGProxyUS_Filas_Status_Erro is CRITICAL',
         customProperties: {
-            testproperty: 'TestValue',
-            messagenumber: 0
+            hostname: "NGPROXY_US",
+            service: "NGProxyUS_Filas_Status_Erro",
+            address: "127.0.0.1",
+            state: "CRITICAL",
+            datetime: "10-10-2018 22:46:31",            
+            additionalInfo: "SQLGENERIC CRITICAL - 1"
         }
     };
     
-    for (i = 0;i < 5;i++) {
-        message.customProperties.messagenumber=i;
-        message.body='Notification Type: PROBLEM - NGPROXY_US/NGProxyUS_Filas_Status_Erro '+i;        
+    for (i = 0;i < 5;i++) {      
         await serviceBusService.sendTopicMessage(process.env.TOPIC, message, function(error) {
           if (error) {
             console.log(error);
           }
-          console.log("Mensagem Enviada: "+ message.body);
+          console.log("Mensagem Enviada: "+JSON.stringify(message));
         });
     }
 
